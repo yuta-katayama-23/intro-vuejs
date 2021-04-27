@@ -10,26 +10,22 @@
 
 <body>
     <div id="app">
-        <div v-html="html"></div>
+        <p>現在{{ number }}回クリックされています</p>
 
-        <!-- 通常のv-bindの書き方 -->
-        <a v-bind:href="url">Google</a>
-        <!-- v-bindの省略形 -->
-        <a :href="url">省略系Google</a>
-        <!-- :[attribute] -->
-        <a :[attribute]="url">attributeのGoogle</a>
-        <!-- 以下は右のように描画される　<a id="3" href="https://twitter.com">ID指定のTwitter</a> -->
-        <a :href="urlTwitter" :id="number">ID指定のTwitter</a>
-        <!-- 上記の短縮形（オブジェクトを利用するパターン） -->
-        <a v-bind="{href: urlTwitter, id: number}">objectのv-bind</a>
-        <!-- オブジェクトをdataに定義する -->
-        <a v-bind="twitterObj">objectをdataからv-bind</a>
+        <!-- ディレクティブの":"は引数の意味。v-onの場合はイベント名。
+             (v-bindの場合は属性名。ex) v-bind:class, v-bind:id)   -->
 
-        <p v-once>{{ message }}</p>
-        <p>{{ number + 5 }}</p>
-        <p>{{ ok ? 'Yes' : 'No' }}</p>
-        <p>{{ sayHello() }}</p>
-        <button v-on:click="reverseMessage">メッセージ反転</button>
+        <!-- 以下はすべて同じ意味 -->
+        <!-- <button v-on:click="number += 1">カウントアップ</button> ←※これは非推奨で関数に切り出すべき-->
+        <!-- <button v-on:click="countUp">カウントアップ</button> -->
+        <button v-on:click="countUp(2)">カウントアップ</button>
+
+        <!-- evenオブジェクトを取得する方法 -->
+        <!-- <p v-on:mousemove="changeMousePosition">マウスをのせて下さい</p> -->
+
+        <!-- 引数ありの場合のeventオブジェクトの取得方法 -->
+        <p v-on:mousemove="changeMousePosition($event, 3)">マウスをのせて下さい</p>
+        <p>x: {{x}}, y:{{y}}</p>
     </div>
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
@@ -38,25 +34,17 @@
         new Vue({
             el: '#app',
             data: {
-                message: 'Hello World!',
-                number: 3,
-                ok: true,
-                html: '<h1>h1です</h1>',
-                attribute: 'href',
-                url: 'https://google.com',
-                urlTwitter: 'https://twitter.com',
-                twitterObj: {
-                    href: 'https://twitter.com',
-                    id: 3
-                }
+                number: 0,
+                x: 0,
+                y: 0
             },
             methods: {
-                reverseMessage: function () {
-                    this.message = this.message.split('').reverse().join('');
+                countUp: function (times) {
+                    this.number += 1 * times
                 },
-                sayHello: function () {
-                    this.message = 'Hello VueJS';
-                    return this.message;
+                changeMousePosition: function (event, divideNumber) {
+                    this.x = event.clientX / divideNumber;
+                    this.y = event.clientY / divideNumber;
                 }
             }
         })
