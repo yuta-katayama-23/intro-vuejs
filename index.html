@@ -11,6 +11,20 @@
 <body>
     <div id="app">
         <div v-html="html"></div>
+
+        <!-- 通常のv-bindの書き方 -->
+        <a v-bind:href="url">Google</a>
+        <!-- v-bindの省略形 -->
+        <a :href="url">省略系Google</a>
+        <!-- :[attribute] -->
+        <a :[attribute]="url">attributeのGoogle</a>
+        <!-- 以下は右のように描画される　<a id="3" href="https://twitter.com">ID指定のTwitter</a> -->
+        <a :href="urlTwitter" :id="number">ID指定のTwitter</a>
+        <!-- 上記の短縮形（オブジェクトを利用するパターン） -->
+        <a v-bind="{href: urlTwitter, id: number}">objectのv-bind</a>
+        <!-- オブジェクトをdataに定義する -->
+        <a v-bind="twitterObj">objectをdataからv-bind</a>
+
         <p v-once>{{ message }}</p>
         <p>{{ number + 5 }}</p>
         <p>{{ ok ? 'Yes' : 'No' }}</p>
@@ -27,7 +41,14 @@
                 message: 'Hello World!',
                 number: 3,
                 ok: true,
-                html: '<h1>h1です</h1>'
+                html: '<h1>h1です</h1>',
+                attribute: 'href',
+                url: 'https://google.com',
+                urlTwitter: 'https://twitter.com',
+                twitterObj: {
+                    href: 'https://twitter.com',
+                    id: 3
+                }
             },
             methods: {
                 reverseMessage: function () {
