@@ -13,18 +13,16 @@
         <p>現在{{ number }}回クリックされています</p>
         <button v-on:click="countUp(2)">カウントアップ</button>
 
-        <!-- 引数ありの場合のeventオブジェクトの取得方法 -->
         <p v-on:mousemove="changeMousePosition($event, 3)">マウスをのせて下さい
-            <!-- <span v-on:mousemove="noEvent">反応しないでください</span> -->
-            <span v-on:mousemove.stop>反応しないでください</span><!-- 上記↑の省略形 -->
+            <span v-on:mousemove.stop>反応しないでください</span>
         </p>
         <p>x: {{x}}, y:{{y}}</p>
 
-        <!-- <a v-on:click="prevent" href="https://google.com">Google</a> -->
-        <a v-on:click.prevent href="https://google.com">Google</a><!-- 上記↑の省略形 -->
+        <a v-on:click.prevent href="https://google.com">Google</a>
 
-        <!-- イベント修飾子"stop"と"prevent"の組み合わせ -->
-        <a v-on:click.stop.prevent href="https://google.com">Google</a>
+        <input type="text" v-on:keyup.enter="myAlert">
+        <input type="text" v-on:keyup.space="myAlert">
+        <input type="text" v-on:keyup.enter.space="myAlert">
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
@@ -44,12 +42,8 @@
                     this.x = event.clientX / divideNumber;
                     this.y = event.clientY / divideNumber;
                 },
-                noEvent: function (event) {
-                    // https://qiita.com/yuta-katayama-23/items/49cab288fa2a8137ebe8
-                    event.stopPropagation();
-                },
-                prevent: function () {
-                    event.preventDefault();
+                myAlert: function () {
+                    alert('アラート')
                 }
             }
         })
