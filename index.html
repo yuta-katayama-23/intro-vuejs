@@ -11,7 +11,8 @@
 <body>
     <div id="app">
         <p>現在{{ number }}回クリックされています</p>
-        <button v-on:[event]="countUp">カウントアップ</button>
+        <button @click="countUp">カウントアップ</button>
+        <button @[event]="countUp">カウントアップ</button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
