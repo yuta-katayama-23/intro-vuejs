@@ -12,8 +12,10 @@
     <div id="app">
         <p>{{ counter }}</p>
         <button @click="counter += 1">+1</button>
-        <!-- <p>{{ counter > 3 ? '3より上' : '3以下' }}</p> ←これはイケてない -->
         <p>{{ lessThanThree }}</p>
+
+        <!-- 以下はDOMが少しでも変更（再描画）されたら毎回実行されるのでNG -->
+        <p>{{ lessThanThreeMethod() }}</p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
@@ -30,6 +32,11 @@
             // プロパティなので必ずreturnが必要
             computed: {
                 lessThanThree: function () {
+                    return this.counter > 3 ? '3より上' : '3以下';
+                }
+            },
+            methods: {
+                lessThanThreeMethod: function () {
                     return this.counter > 3 ? '3より上' : '3以下';
                 }
             }
