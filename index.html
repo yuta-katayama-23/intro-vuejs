@@ -10,16 +10,28 @@
 
 <body>
     <div id="app">
-        <h1>{{ message }}</h1>
-        <input type="text" v-model="message">
+        <p>{{ counter }}</p>
+        <button @click="counter += 1">+1</button>
+        <!-- <p>{{ counter > 3 ? '3より上' : '3以下' }}</p> ←これはイケてない -->
+        <p>{{ lessThanThree }}</p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script>
         new Vue({
             el: '#app',
+            // dataは動的なものは表現できず初期値を定義するだけ
             data: {
-                message: 'こんにちは'
+                counter: 0
+                // lessThanThree: this.counter <-できない
+                // lessThanThree: counter > 3 ? '3より上' : '3以下' <-できない
+            },
+            // 動的なプロパティ(値)を設定するために使うプロパティ（computedプロパティ）
+            // プロパティなので必ずreturnが必要
+            computed: {
+                lessThanThree: function () {
+                    return this.counter > 3 ? '3より上' : '3以下';
+                }
             }
         })
     </script>
