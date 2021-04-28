@@ -11,18 +11,7 @@
 <body>
     <div id="app">
         <p>現在{{ number }}回クリックされています</p>
-        <button v-on:click="countUp(2)">カウントアップ</button>
-
-        <p v-on:mousemove="changeMousePosition($event, 3)">マウスをのせて下さい
-            <span v-on:mousemove.stop>反応しないでください</span>
-        </p>
-        <p>x: {{x}}, y:{{y}}</p>
-
-        <a v-on:click.prevent href="https://google.com">Google</a>
-
-        <input type="text" v-on:keyup.enter="myAlert">
-        <input type="text" v-on:keyup.space="myAlert">
-        <input type="text" v-on:keyup.enter.space="myAlert">
+        <button v-on:[event]="countUp">カウントアップ</button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
@@ -31,19 +20,11 @@
             el: '#app',
             data: {
                 number: 0,
-                x: 0,
-                y: 0
+                event: 'click'
             },
             methods: {
-                countUp: function (times) {
-                    this.number += 1 * times
-                },
-                changeMousePosition: function (event, divideNumber) {
-                    this.x = event.clientX / divideNumber;
-                    this.y = event.clientY / divideNumber;
-                },
-                myAlert: function () {
-                    alert('アラート')
+                countUp: function () {
+                    this.number += 1;
                 }
             }
         })
