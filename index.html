@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
     <meta charset="UTF-8">
@@ -13,31 +13,32 @@
         <p>{{ counter }}</p>
         <button @click="counter += 1">+1</button>
         <p>{{ lessThanThree }}</p>
-
-        <!-- 以下はDOMが少しでも変更（再描画）されたら毎回実行されるのでNG -->
-        <p>{{ lessThanThreeMethod() }}</p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script>
         new Vue({
             el: '#app',
-            // dataは動的なものは表現できず初期値を定義するだけ
             data: {
                 counter: 0
-                // lessThanThree: this.counter <-できない
-                // lessThanThree: counter > 3 ? '3より上' : '3以下' <-できない
             },
-            // 動的なプロパティ(値)を設定するために使うプロパティ（computedプロパティ）
-            // プロパティなので必ずreturnが必要
+            // computedの問題点
+            // あくまでプロパティなのでそのプロパティがhtml側にないとロジックが動かない
+            // 上記であれば、"<p>{{ lessThanThree }}</p>"がないとconsole.logの部分は動かいない
             computed: {
                 lessThanThree: function () {
+                    console.log('computed');
                     return this.counter > 3 ? '3より上' : '3以下';
                 }
             },
-            methods: {
-                lessThanThreeMethod: function () {
-                    return this.counter > 3 ? '3より上' : '3以下';
+            // あるデータが変わった時に使うが、それがプロパティでない時に使う
+            // 非同期処理を行う時に使う（computedでも無理くりはできるがreturnがあり同期処理になるので非推奨）
+            watch: {
+                counter: function () {
+                    const vm = this;
+                    setTimeout(function () {
+                        vm.counter = 0;
+                    }, 3000)
                 }
             }
         })
