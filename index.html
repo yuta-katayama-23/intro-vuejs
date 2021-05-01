@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 
 <body>
     <div id="app">
-        <!-- 動的な属性値の変更①（オブジェクトを渡し真偽値で制御） -->
-        <h1 :class="{ red: isActive, 'bg-blue': !isActive }">Hello</h1>
-        <h1 :class="classObject">Hello</h1>
-        <button @click="isActive = !isActive">切り替え</button>
+        <h1 :style="{color: 'red', 'background-color': 'blue'}">Hello</h1>
+        <h1 :style="{color: textColor, 'background-color': bgColor}">Hello</h1>
 
-        <!-- 動的な属性値の変更②（適応させたいクラスを配列に並べる） -->
-        <h1 :class="[color, bg]">Hello</h1>
-        <h1 :class="[{red: isActive}, bg]">Hello</h1>
+        <!-- 推奨は以下のようにdataやcomputedでオブジェクトを定義しバインディングさせる方式 -->
+        <h1 :style="styleObject">Hello</h1>
+
+        <!-- 複数のオブジェクトをバインディングさせる場合は配列で記述。
+             これはクラスのデータバインディングでも同じ。 -->
+        <h1 :style="[baseStyles, styleObject]">Hello</h1>
     </div>
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
@@ -27,16 +27,14 @@
         new Vue({
             el: '#app',
             data: {
-                isActive: true,
-                color: 'red',
-                bg: 'bg-blue'
-            },
-            computed: {
-                classObject: function () {
-                    return {
-                        red: this.isActive,
-                        'bg-blue': !this.isActive
-                    }
+                textColor: 'red',
+                bgColor: 'blue',
+                styleObject: {
+                    color: 'red',
+                    'background-color': 'blue'
+                },
+                baseStyles: {
+                    fontSize: '60px'
                 }
             }
         })
