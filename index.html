@@ -10,9 +10,13 @@
 
 <body>
     <div id="app">
-        <p v-if="ok">OK!</p>
-        <p v-else-if="maybeOk">maybe OK!</p>
-        <p v-else>Not OK...</p>
+        <button @click="ok = !ok">ボタン</button>
+        <p v-if="ok">If</p>
+        <p v-show="ok">Show</p>
+
+        <template v-show="ok">
+            <p>隠したい</p>
+        </template>
     </div>
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
@@ -21,8 +25,7 @@
         new Vue({
             el: '#app',
             data: {
-                ok: false,
-                maybeOk: true
+                ok: true
             }
         })
     </script>
