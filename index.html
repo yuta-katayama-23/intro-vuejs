@@ -11,7 +11,13 @@
 <body>
     <div id="app">
         <ul>
+            <!-- 配列の場合、v-forの第2引数はindex -->
             <li v-for="(fruit, index) in fruits">({{ index }}){{ fruit }}</li>
+        </ul>
+        <ul>
+            <!-- オブジェクトの場合、v-forの第2引数はキー、第3引数はindex -->
+            <li v-for="value in objects">{{ value }}</li>
+            <li v-for="(value, key, index) in objects">({{ index }}){{key}}-{{ value }}</li>
         </ul>
     </div>
 
@@ -21,7 +27,12 @@
         new Vue({
             el: '#app',
             data: {
-                fruits: ['りんご', 'バナナ', 'ぶどう']
+                fruits: ['りんご', 'バナナ', 'ぶどう'],
+                objects: {
+                    firstName: '太郎',
+                    lastName: '田中',
+                    age: 21
+                }
             }
         })
     </script>
