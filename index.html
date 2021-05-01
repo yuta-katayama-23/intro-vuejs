@@ -11,34 +11,36 @@
 <body>
     <div id="app">
         <p>{{ counter }}</p>
-        <button @click="counter += 1">+1</button>
-        <p>{{ lessThanThree }}</p>
+        <!-- 以下はどちらでもOK -->
+        <!-- v-onはJavaScript式を書くのが"()"で、"()"なしはVue.jsの仕様でメソッドイベントハンドラ -->
+        <button @click="countUp">+1</button>
+        <button @click="countUp()">+1</button>
+
+        <!-- computedの場合は"()"は不要（付けてはNG） -->
+        <p>{{ doubleCounterComputed }}</p>
+
+        <!-- methodsの場合は"()"は必須 -->
+        <p>{{ doubleCounterMethod() }}</p>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
+    <script src="./vue.js"></script>
     <script>
         new Vue({
             el: '#app',
             data: {
                 counter: 0
             },
-            // computedの問題点
-            // あくまでプロパティなのでそのプロパティがhtml側にないとロジックが動かない
-            // 上記であれば、"<p>{{ lessThanThree }}</p>"がないとconsole.logの部分は動かいない
             computed: {
-                lessThanThree: function () {
-                    console.log('computed');
-                    return this.counter > 3 ? '3より上' : '3以下';
+                doubleCounterComputed: function () {
+                    return this.counter * 2;
                 }
-            },
-            // あるデータが変わった時に使うが、それがプロパティでない時に使う
-            // 非同期処理を行う時に使う（computedでも無理くりはできるがreturnがあり同期処理になるので非推奨）
-            watch: {
-                counter: function () {
-                    const vm = this;
-                    setTimeout(function () {
-                        vm.counter = 0;
-                    }, 3000)
+            }, methods: {
+                countUp: function () {
+                    this.counter += 1;
+                },
+                doubleCounterMethod: function () {
+                    return this.counter * 2;
                 }
             }
         })
