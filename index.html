@@ -5,22 +5,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 
 <body>
     <div id="app">
-        <p>{{ counter }}</p>
-        <!-- 以下はどちらでもOK -->
-        <!-- v-onはJavaScript式を書くのが"()"で、"()"なしはVue.jsの仕様でメソッドイベントハンドラ -->
-        <button @click="countUp">+1</button>
-        <button @click="countUp()">+1</button>
+        <!-- 動的な属性値の変更①（オブジェクトを渡し真偽値で制御） -->
+        <h1 :class="{ red: isActive, 'bg-blue': !isActive }">Hello</h1>
+        <h1 :class="classObject">Hello</h1>
+        <button @click="isActive = !isActive">切り替え</button>
 
-        <!-- computedの場合は"()"は不要（付けてはNG） -->
-        <p>{{ doubleCounterComputed }}</p>
-
-        <!-- methodsの場合は"()"は必須 -->
-        <p>{{ doubleCounterMethod() }}</p>
+        <!-- 動的な属性値の変更②（適応させたいクラスを配列に並べる） -->
+        <h1 :class="[color, bg]">Hello</h1>
+        <h1 :class="[{red: isActive}, bg]">Hello</h1>
     </div>
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
@@ -29,18 +27,16 @@
         new Vue({
             el: '#app',
             data: {
-                counter: 0
+                isActive: true,
+                color: 'red',
+                bg: 'bg-blue'
             },
             computed: {
-                doubleCounterComputed: function () {
-                    return this.counter * 2;
-                }
-            }, methods: {
-                countUp: function () {
-                    this.counter += 1;
-                },
-                doubleCounterMethod: function () {
-                    return this.counter * 2;
+                classObject: function () {
+                    return {
+                        red: this.isActive,
+                        'bg-blue': !this.isActive
+                    }
                 }
             }
         })
