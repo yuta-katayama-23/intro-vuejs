@@ -11,7 +11,7 @@
 <body>
     <div id="app">
         <ul>
-            <li v-for="fruit in fruits">{{ fruit }}</li>
+            <li v-for="(fruit, index) in fruits">({{ index }}){{ fruit }}</li>
         </ul>
     </div>
 
