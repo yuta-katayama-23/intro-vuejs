@@ -10,13 +10,9 @@
 
 <body>
     <div id="app">
-        <button @click="ok = !ok">ボタン</button>
-        <p v-if="ok">If</p>
-        <p v-show="ok">Show</p>
-
-        <template v-show="ok">
-            <p>隠したい</p>
-        </template>
+        <ul>
+            <li v-for="fruit in fruits">{{ fruit }}</li>
+        </ul>
     </div>
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
@@ -25,7 +21,7 @@
         new Vue({
             el: '#app',
             data: {
-                ok: true
+                fruits: ['りんご', 'バナナ', 'ぶどう']
             }
         })
     </script>
