@@ -9,34 +9,28 @@
 </head>
 
 <body>
-    <div id="app">
-        <ul>
-            <!-- v-forの問題点：要素の移動を最小限に抑えるアルゴリズムが採用されており、可能な限りその場の近い要素を再利用しようとする -->
-            <!-- ので、以下のようにremoveで配列の要素を消すと、消す前後の差分を考えて効率よくレンダリングするのでinputの中身が意図しない感じになる -->
+    <div id="app1">
+        <p>{{message}}</p>
+    </div>
 
-            <!-- <div v-for="fruit in fruits"> ←意図しない挙動になる実装 -->
-
-            <!-- ↓ 意図通りの挙動になる実装 -->
-            <div v-for="fruit in fruits" :key="fruit">
-                <p>{{ fruit }}</p>
-                <input type="text">
-            </div>
-        </ul>
-        <button @click="remove">先頭を削除</button>
+    <div id="app2">
+        <p>{{message}}</p>
     </div>
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
     <script src="./vue.js"></script>
     <script>
         new Vue({
-            el: '#app',
+            el: '#app1',
             data: {
-                fruits: ['りんご', 'バナナ', 'ぶどう']
-            },
-            methods: {
-                remove: function () {
-                    this.fruits.shift();
-                }
+                message: 'インスタンス1'
+            }
+        })
+
+        new Vue({
+            el: '#app2',
+            data: {
+                message: 'インスタンス2'
             }
         })
     </script>
