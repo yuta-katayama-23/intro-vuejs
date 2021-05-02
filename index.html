@@ -17,6 +17,7 @@
     </div>
 
     <div id="app2"></div>
+    <div id="app3"></div>
 
     <!-- <script src=" https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
     <script src="./vue.js"></script>
@@ -43,6 +44,19 @@
             },
             template: '<h1>こんにちは、{{name}}</h1>'
         }).$mount('#app2') // ←このようにmountさせる事もできる
+
+        new Vue({
+            data: {
+                name: '山田 太郎'
+            },
+            // "render"の引数は何でもよく、"h"が用いられたりする
+            // render: function (createElement) {
+            render: function (h) {
+                // ここではDOMを作成しているのではなく、VNode（仮想ノード）を作成している
+                console.log(h('h1', `こんにちは、${this.name}`))
+                return h('h1', `こんにちは、${this.name}`);
+            }
+        }).$mount('#app3')
     </script>
 </body>
 
