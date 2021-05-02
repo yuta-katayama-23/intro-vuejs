@@ -16,6 +16,8 @@
         <button @click="message = 'ボタンから変更'">変更</button>
     </div>
 
+    <div id="app2"></div>
+
     <!-- <script src=" https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
     <script src="./vue.js"></script>
     <script>
@@ -34,6 +36,13 @@
             }
         })
         vm.$mount('#app1')
+
+        new Vue({
+            data: {
+                name: '山田 太郎'
+            },
+            template: '<h1>こんにちは、{{name}}</h1>'
+        }).$mount('#app2') // ←このようにmountさせる事もできる
     </script>
 </body>
 
