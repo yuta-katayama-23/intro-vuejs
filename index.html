@@ -11,38 +11,24 @@
 <body>
     <div id="app1">
         <p>{{message}}</p>
+        <p>{{name}}</p>
+
+        <!-- ボタンをクリックしてもリアクティブにならなず、nameは'こんばんは'のまま -->
+        <button @click="name='ボタンから変更'">変更</button>
     </div>
 
-    <div id="app2">
-        <p>{{message}}</p>
-        <button @click="changeMessgae1">インスタンス1のmessageを変更</button>
-    </div>
-
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
+    <!-- <script src=" https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
     <script src="./vue.js"></script>
     <script>
-        const vm1 = new Vue({
+        const vm = new Vue({
             el: '#app1',
             data: {
-                message: 'インスタンス1'
+                message: 'こんにちは'
             }
         })
-
-        // 外部から書き換える例1
-        // vm1.message = '書き換えられました';
-
-        const vm2 = new Vue({
-            el: '#app2',
-            data: {
-                message: 'インスタンス2'
-            },
-            methods: {
-                // 別のVueインスタンスの値を書き換える
-                changeMessgae1: function () {
-                    vm1.message = 'インスタンス2から変えました'
-                }
-            }
-        })
+        vm.message = '書き変えた';
+        vm.name = 'こんばんは';
+        console.log(vm);
     </script>
 </body>
 
