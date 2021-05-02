@@ -25,7 +25,7 @@
         }
 
         const vm = new Vue({
-            el: '#app1',
+            // el: '#app1',
             data: data,
             computed: {
                 myData: function () {
@@ -34,13 +34,14 @@
                 }
             }
         })
-
         // Vueインスタンスが提供しているプロパティへは"$"でアクセスできる
         console.log(data === vm.$data);
 
         // Vueインスタンスのプロパティは"$"で始まるフィールドの値
         // console上で実際に出力してみると、"$el:"や"$data:"などがあることが確認できる
         console.log(vm);
+
+        vm.$mount('#app1')
     </script>
 </body>
 
