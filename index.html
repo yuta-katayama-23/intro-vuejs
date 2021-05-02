@@ -13,12 +13,12 @@
         <p>{{message}}</p>
         <p>{{name}}</p>
         <p>{{myData}}</p>
+        <button @click="message = 'ボタンから変更'">変更</button>
     </div>
 
     <!-- <script src=" https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
     <script src="./vue.js"></script>
     <script>
-        // このようにオブジェクトを定義してそれをVueのdataプロパティにするとかもできる
         const data = {
             message: 'こんにちは',
             name: 'こんばんは'
@@ -29,18 +29,10 @@
             data: data,
             computed: {
                 myData: function () {
-                    // 内部からVueインスタンスを参照する時は"this.$○○"の形式で使える
                     return this.$data;
                 }
             }
         })
-        // Vueインスタンスが提供しているプロパティへは"$"でアクセスできる
-        console.log(data === vm.$data);
-
-        // Vueインスタンスのプロパティは"$"で始まるフィールドの値
-        // console上で実際に出力してみると、"$el:"や"$data:"などがあることが確認できる
-        console.log(vm);
-
         vm.$mount('#app1')
     </script>
 </body>
