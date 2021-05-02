@@ -12,22 +12,34 @@
     <div id="app1">
         <p>{{message}}</p>
         <p>{{name}}</p>
-
-        <!-- ボタンをクリックしてもリアクティブにならなず、nameは'こんばんは'のまま -->
-        <button @click="name='ボタンから変更'">変更</button>
+        <p>{{myData}}</p>
     </div>
 
     <!-- <script src=" https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
     <script src="./vue.js"></script>
     <script>
+        // このようにオブジェクトを定義してそれをVueのdataプロパティにするとかもできる
+        const data = {
+            message: 'こんにちは',
+            name: 'こんばんは'
+        }
+
         const vm = new Vue({
             el: '#app1',
-            data: {
-                message: 'こんにちは'
+            data: data,
+            computed: {
+                myData: function () {
+                    // 内部からVueインスタンスを参照する時は"this.$○○"の形式で使える
+                    return this.$data;
+                }
             }
         })
-        vm.message = '書き変えた';
-        vm.name = 'こんばんは';
+
+        // Vueインスタンスが提供しているプロパティへは"$"でアクセスできる
+        console.log(data === vm.$data);
+
+        // Vueインスタンスのプロパティは"$"で始まるフィールドの値
+        // console上で実際に出力してみると、"$el:"や"$data:"などがあることが確認できる
         console.log(vm);
     </script>
 </body>
