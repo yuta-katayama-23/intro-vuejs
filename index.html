@@ -13,12 +13,14 @@
         <p>{{message}}</p>
         <p>{{name}}</p>
         <p>{{myData}}</p>
+        <hello></hello>
         <button @click="message = 'ボタンから変更'">変更</button>
     </div>
 
     <div id="app2"></div>
     <div id="app3"></div>
     <div id="app4">
+        <hello></hello>
         <h1>こんにちは、{{name}}</h1>
         <button @click="name = '田中 太郎'">名前を変更</button>
         <button @click="destroy">インスタンスを破壊</button>
@@ -31,6 +33,10 @@
             message: 'こんにちは',
             name: 'こんばんは'
         }
+
+        Vue.component('hello', {
+            template: '<p>こんにちは</p>'
+        });
 
         new Vue({
             // el: '#app1',
