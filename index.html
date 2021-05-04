@@ -18,6 +18,11 @@
 
     <div id="app2"></div>
     <div id="app3"></div>
+    <div id="app4">
+        <h1>こんにちは、{{name}}</h1>
+        <button @click="name = '田中 太郎'">名前を変更</button>
+        <button @click="destroy">インスタンスを破壊</button>
+    </div>
 
     <!-- <script src=" https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
     <script src="./vue.js"></script>
@@ -27,7 +32,7 @@
             name: 'こんばんは'
         }
 
-        const vm = new Vue({
+        new Vue({
             // el: '#app1',
             data: data,
             computed: {
@@ -35,28 +40,62 @@
                     return this.$data;
                 }
             }
-        })
-        vm.$mount('#app1')
+        }).$mount('#app1')
 
         new Vue({
             data: {
                 name: '山田 太郎'
             },
             template: '<h1>こんにちは、{{name}}</h1>'
-        }).$mount('#app2') // ←このようにmountさせる事もできる
+        }).$mount('#app2')
 
         new Vue({
             data: {
                 name: '山田 太郎'
             },
-            // "render"の引数は何でもよく、"h"が用いられたりする
-            // render: function (createElement) {
             render: function (h) {
-                // ここではDOMを作成しているのではなく、VNode（仮想ノード）を作成している
-                console.log(h('h1', `こんにちは、${this.name}`))
                 return h('h1', `こんにちは、${this.name}`);
             }
         }).$mount('#app3')
+
+        const vm = new Vue({
+            el: '#app4',
+            data: {
+                name: '山田 花子'
+            },
+            beforeCreate: function () {
+                console.log('beforeCreate');
+            },
+            created: function () {
+                console.log('created');
+            },
+            beforeMount: function () {
+                console.log('beforeMount');
+            },
+            mounted: function () {
+                console.log('mounted');
+            },
+            beforeUpdate: function () {
+                console.log('beforeUpdate');
+            },
+            updated: function () {
+                console.log('updated');
+            },
+            beforeDestroy: function () {
+                console.log('beforeDestroy');
+            },
+            destroyed: function () {
+                console.log('destroyed');
+            },
+            methods: {
+                destroy: function () {
+                    this.$destroy();
+                }
+            }
+        })
+        setTimeout(() => {
+            vm.$mount('#app4')
+        }, 3000);
     </script>
 </body>
 
