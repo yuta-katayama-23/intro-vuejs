@@ -9,99 +9,36 @@
 </head>
 
 <body>
-    <div id="app1">
-        <p>{{message}}</p>
-        <p>{{name}}</p>
-        <p>{{myData}}</p>
-        <hello></hello>
-        <button @click="message = 'ボタンから変更'">変更</button>
+    <div id="app">
+        <my-component></my-component>
+        <my-component></my-component>
+        <my-component></my-component>
     </div>
 
-    <div id="app2"></div>
-    <div id="app3"></div>
-    <div id="app4">
-        <hello></hello>
-        <h1>こんにちは、{{name}}</h1>
-        <button @click="name = '田中 太郎'">名前を変更</button>
-        <button @click="destroy">インスタンスを破壊</button>
-    </div>
+    <!-- 以下のように"class"にしてもう1つ用意しても描画されない
+        （Vueでは1つ目に見つかったものにそのインスタンスを適用しそれ以降は適用しないため。） -->
+    <!-- <div class="app"></div> -->
 
     <!-- <script src=" https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
     <script src="./vue.js"></script>
     <script>
-        const data = {
-            message: 'こんにちは',
-            name: 'こんばんは'
-        }
-
-        Vue.component('hello', {
-            template: '<p>こんにちは</p>'
-        });
-
-        new Vue({
-            // el: '#app1',
-            data: data,
-            computed: {
-                myData: function () {
-                    return this.$data;
+        Vue.component('my-component', {
+            data: function () {
+                return {
+                    number: 12
                 }
-            }
-        }).$mount('#app1')
-
-        new Vue({
-            data: {
-                name: '山田 太郎'
             },
-            template: '<h1>こんにちは、{{name}}</h1>'
-        }).$mount('#app2')
-
-        new Vue({
-            data: {
-                name: '山田 太郎'
-            },
-            render: function (h) {
-                return h('h1', `こんにちは、${this.name}`);
-            }
-        }).$mount('#app3')
-
-        const vm = new Vue({
-            // el: '#app4',
-            data: {
-                name: '山田 花子'
-            },
-            beforeCreate: function () {
-                console.log('beforeCreate');
-            },
-            created: function () {
-                console.log('created');
-            },
-            beforeMount: function () {
-                console.log('beforeMount');
-            },
-            mounted: function () {
-                console.log('mounted');
-            },
-            beforeUpdate: function () {
-                console.log('beforeUpdate');
-            },
-            updated: function () {
-                console.log('updated');
-            },
-            beforeDestroy: function () {
-                console.log('beforeDestroy');
-            },
-            destroyed: function () {
-                console.log('destroyed');
-            },
-            methods: {
-                destroy: function () {
-                    this.$destroy();
-                }
-            }
+            template: '<p>いいね({{number}})</p>'
         })
-        setTimeout(() => {
-            vm.$mount('#app4')
-        }, 3000);
+
+        new Vue({
+            // el: '.app',
+            el: '#app',
+            // data: {
+            //     number: 12
+            // },
+            // template: '<p>いいね({{number}})</p>'
+        })
     </script>
 </body>
 
