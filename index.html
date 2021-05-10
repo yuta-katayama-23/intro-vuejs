@@ -18,15 +18,29 @@
     <!-- <script src=" https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
     <script src="./vue.js"></script>
     <script>
-        const data = {
-            number: 12
-        }
+        // コンポーネントのGobal登録
+        // ※こちらは一般的には使わない
+        // 　理由：あまり使用されないコンポーネントなのにファイルに残ってしまいファイルサイズが増加するなどの弊害があるため
+        // Vue.component('my-component', {
+        //     data: function () {
+        //         return { number: 12 }
+        //     },
+        //     template: '<p>いいね({{number}})<button @click="increment">+1</button></p>',
+        //     methods: {
+        //         increment: function () {
+        //             this.number += 1;
+        //         }
+        //     }
+        // })
+        //
+        // new Vue({
+        //     el: '#app'
+        // })
 
-        Vue.component('my-component', {
-            // dataがfunctionである理由：オブジェクトの場合、参照先が同じになり同じdataを共有してしまうのでそれを避けるため
+        // コンポーネントのLocal登録
+        const component = {
             data: function () {
                 return { number: 12 }
-                // return data
             },
             template: '<p>いいね({{number}})<button @click="increment">+1</button></p>',
             methods: {
@@ -34,10 +48,13 @@
                     this.number += 1;
                 }
             }
-        })
+        }
 
         new Vue({
             el: '#app',
+            components: {
+                'my-component': component
+            }
         })
     </script>
 </body>
